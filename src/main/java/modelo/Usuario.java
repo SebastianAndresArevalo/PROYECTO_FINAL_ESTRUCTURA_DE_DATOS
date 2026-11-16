@@ -13,8 +13,10 @@ public class Usuario {
     private List<Billetera> billeteras;
     private List<Transaccion> historial;
     private List<Notificacion> notificaciones;
+    private List<Canje> canjes;                       // junto a los demás campos
 
     public Usuario(String id, String nombre, String correo) {
+        this.canjes = new ArrayList<>();
         this.id = id;
         this.nombre = nombre;
         this.correo = correo;
@@ -41,6 +43,7 @@ public class Usuario {
         nivel = Nivel.dePuntos(puntos);
     }
 
+    public List<Canje> getCanjes() { return canjes; }
     public String getId() { return id; }
     public String getNombre() { return nombre; }
     public String getCorreo() { return correo; }

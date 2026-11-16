@@ -29,6 +29,12 @@ public class TransaccionServicio {
         this.notificaciones = notificaciones;
     }
 
+    private RiesgoServicio riesgo;
+
+    public void setRiesgoServicio(RiesgoServicio riesgo) {
+        this.riesgo = riesgo;
+    }
+
     public Transaccion recargar(String codigo, double valor) {
         return conRechazo(codigo, () -> {
             validarValor(valor);
@@ -161,6 +167,10 @@ public class TransaccionServicio {
 
         if (esReversible(t.getTipo())) {
             repo.getReversibles().computeIfAbsent(actor.getId(), k -> new Pila<>()).push(t);
+        }
+
+        if (riesgo != null) {
+            riesgo.evaluar(t, actor);
         }
     }
 
